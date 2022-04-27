@@ -4,15 +4,12 @@
 This project is designed to hep parking easy organised and managed 
 
 
-## Installation
-
-Install my-project with npm
-
-```bash
-  Clone this repository if you don't have
-  Enter in it
-  open terminal and Install dependences by typing `npm install`
-```
+## Technologies
+- Node js (>= 16)
+- npm package installer
+- Postgresql Database
+- Sequelise ORM
+- Cloudinary For Image Storage
     
 ## Run Locally
 
