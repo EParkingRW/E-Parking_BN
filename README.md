@@ -22,7 +22,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd E-Parking_BN
 ```
 
 Install dependencies
@@ -30,7 +30,13 @@ Install dependencies
 ```bash
   npm install
 ```
+Pre-requirements
 
+```bash
+  - create .env file 
+  - Copy from .env.example file 
+  - And Paste inside of .env file and fill what are missing
+```
 Start the server
 
 ```bash
