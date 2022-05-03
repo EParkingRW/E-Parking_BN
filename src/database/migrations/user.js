@@ -1,42 +1,46 @@
 'use strict';
+
 module.exports = {
-  up: async (queryInterface,DataTypes) => {
+  up: async (queryInterface,Sequelize) => {
     await queryInterface.createTable("tblUsers", {
         id: {
-          type: DataTypes.UUID,
           primaryKey: true,
-          comment: 'The User id.'
+          allowNull: false,
+          defaultValue: Sequelize.literal("gen_random_uuid()"),
+          type: Sequelize.UUID,
         },
       roleId: {
-        type: DataTypes.UUID,
+        type: Sequelize.UUID,
         foreignKey: true,
         allowNull: false,
         defaultValue: "50b5cfca-c3ef-11ec-a2e8-c4346b2430f5",
     },
       name: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       email: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       password: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       phoneNumber: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
       },
       status: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         defaultValue: 0,
         comment: '0: offline, 1: online',
      },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
   },

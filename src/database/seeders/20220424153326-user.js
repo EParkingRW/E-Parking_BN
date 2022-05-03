@@ -7,12 +7,10 @@ module.exports = {
       [
         {
           name: "NKUBITO Emmanuel",
-          email: "emmanuelnkubito2@gmail.com",
+          email: "admin@future.rw",
           password:
             "$2b$12$89zO5H8EZ0diXju0ZMZXcejpBZMHtfwjC/2oEm9HQU8H99L1/CoWq",
-          phoneNumber:'0787311654',
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          phoneNumber:'0787311654'
         },
       ],
       {}

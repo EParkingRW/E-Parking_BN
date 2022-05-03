@@ -3,7 +3,7 @@ module.exports = {
       queryInterface.createTable('tblRole', {
         id: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV1,
+            defaultValue: Sequelize.literal("gen_random_uuid()"),
             primaryKey: true,
         },
         title: {

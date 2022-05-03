@@ -2,7 +2,7 @@ export function up(queryInterface, DataTypes) {
     return queryInterface.createTable('tblVehicles', {
         id: {
             type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV1,
+            defaultValue: DataTypes.literal("gen_random_uuid()"),
             primaryKey: true,
         },
         plateText: {
@@ -13,9 +13,15 @@ export function up(queryInterface, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        createdAt: {
-            type: DataTypes.DATE,
+        enteredAt: {
             allowNull: false,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+        },
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: {
             type: DataTypes.DATE,
