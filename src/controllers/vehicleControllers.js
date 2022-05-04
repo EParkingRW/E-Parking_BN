@@ -8,7 +8,7 @@ export default class vehicleControllers{
         const file = req.files.photo;
         try {
             const imageUrl = await cloudinari.uploadPhoto(req,res,file);
-          //res.send({file:imageUrl.secure_url})
+            //res.send({file:imageUrl.secure_url})
             VehicleService.create({plateText,imageUrl:imageUrl.secure_url}).then((resp)=>{
                 return Response.success(res,201,{
                     message:"Vehicle saved successfuly",
@@ -16,6 +16,28 @@ export default class vehicleControllers{
                 })
             }).catch((err)=>{
                 return Response.error(res,401,{message:"fails to save This vehicle",error:err.message})
+            })
+        } catch (error) {
+            return Response.error(res,500,{message:"server error",error:error.message})
+        }
+    }
+
+    static async exitPoint(req,res){
+        const plateText = req.body.plateText;
+        try {
+            await VehicleService.findvehicleByPlateNumber(plateText).then((resp)=>{
+                var data = resp[0]
+                let id = data.dataValues.id
+                VehicleService.updateAtExit(id).then((result)=>{
+                    return Response.success(res,201,{
+                        message:"Vehicle found successfuly",
+                        data:resp
+                    })
+                }).catch((err)=>{
+                    return Response.error(res,402,{message:"fails to update This vehicle at exit",error:err.message})
+                })
+            }).catch((err)=>{
+                return Response.error(res,403,{message:"This vehicle is not in parking",error:err.message})
             })
         } catch (error) {
             return Response.error(res,500,{message:"server error",error:error.message})

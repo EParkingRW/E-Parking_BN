@@ -13,7 +13,12 @@ export function up(queryInterface, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        enteredAt: {
+        isInside: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
+        },
+        exitedAt: {
             allowNull: false,
             type: DataTypes.DATE,
             defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),

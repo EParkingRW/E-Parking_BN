@@ -15,6 +15,16 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        isInside: {
+          type: DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: true,
+        },
+        exitedAt: {
+            allowNull: false,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
       },
       {
         tableName: 'tblVehicles',

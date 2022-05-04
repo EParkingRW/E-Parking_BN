@@ -3,8 +3,12 @@ import vehicleControllers from '../controllers/vehicleControllers';
 const route = express();
 
 route.post(
-        '/create',
+        '/entrance',
         vehicleControllers.savePlateText
+      )
+      .put(
+        '/exit',
+        vehicleControllers.exitPoint
       )
       .get("/",vehicleControllers.getAllSaveVehicles)
 

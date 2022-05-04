@@ -2,7 +2,7 @@ import responses from '../responses';
 import 'dotenv/config';
 
 const Vehicles = {
-    '/vehicles/create': {
+    '/vehicles/entrance': {
         post: {
           tags: ['Vehicles'],
           security: [
@@ -10,7 +10,7 @@ const Vehicles = {
               JWT: [],
             },
           ],
-          summary: 'create new vehicle',
+          summary: 'Register new vehicle',
           parameters: [
             {
                 in: 'formData',
@@ -28,19 +28,44 @@ const Vehicles = {
           responses,
         },
       },
-      '/vehicles': {
-        get: {
-          tags: ['Vehicles'],
-          security: [
-            {
-              JWT: [],
-            },
-          ],
-          summary: 'retreive all vehicles',
-          parameters: [],
-          consumes: ['application/json'],
-          responses,
-        },
+    '/vehicles/exit': {
+      put: {
+        tags: ['Vehicles'],
+        security: [
+          {
+            JWT: [],
+          },
+        ],
+        summary: 'View Exit vehicle',
+        parameters: [
+          {
+              in: 'body',
+              name: 'plateText',
+              required: true,
+              schema:{
+                example:{
+                  plateText:"RAB123C"
+                }
+              }
+          }
+        ],
+        consumes: ['application/json'],
+        responses,
       },
+    },
+    '/vehicles': {
+      get: {
+        tags: ['Vehicles'],
+        security: [
+          {
+            JWT: [],
+          },
+        ],
+        summary: 'retreive all vehicles',
+        parameters: [],
+        consumes: ['application/json'],
+        responses,
+      },
+    },
 }
 export default Vehicles
