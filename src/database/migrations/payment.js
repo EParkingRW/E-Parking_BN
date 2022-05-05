@@ -3,7 +3,7 @@ module.exports = {
       queryInterface.createTable('tblPayment', {
         id: {
           type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV1,
+          defaultValue: DataTypes.literal("gen_random_uuid()"),
           primaryKey: true,
         },
         fullName: {

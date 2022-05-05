@@ -5,7 +5,7 @@ This project is designed to hep parking easy organised and managed
 
 
 ## Technologies
-- Node js (>= 16)
+- Node js (>= 18)
 - npm package installer
 - Postgresql Database
 - Sequelise ORM
@@ -38,7 +38,9 @@ Pre-requirements
   - And Paste inside of .env file and fill what are missing
 ```
 Start the server
-
+```bash
+  npm run migrateDB
+```
 ```bash
   npm run dev
 ```

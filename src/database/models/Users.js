@@ -1,35 +1,35 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define(
       'User',
       {
         id: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV1,
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.UUIDV1,
           primaryKey: true
         },
         roleId: {
-            type: DataTypes.UUID,
+            type: Sequelize.UUID,
             foreignKey: true,
             allowNull: false,
-            defaultValue: DataTypes.UUIDV1,
+            defaultValue: Sequelize.UUIDV1,
             // defaultValue: 3,
         },
         email: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             unique: true,
         },
         password: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
         },
         name: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         phoneNumber: {
-            type: DataTypes.STRING,
+            type: Sequelize.STRING,
         },
         status: {
-            type: DataTypes.INTEGER,
+            type: Sequelize.INTEGER,
             defaultValue: 0,
             comment: '0: offline, 1: online',
         },
