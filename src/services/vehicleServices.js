@@ -16,7 +16,11 @@ export default class VehicleService{
    */
       static updateAtExit(id) {
         return Vehicle.update({ exitedAt: new Date() , isInside: false},
-            { where: { id } }
+            { 
+              where: { id },
+              returning: true,
+              plain: true
+            }
         );
       }
      /**

@@ -27,11 +27,13 @@ export default class vehicleControllers{
         try {
             await VehicleService.findvehicleByPlateNumber(plateText).then((resp)=>{
                 var data = resp[0]
+                // console.log("first:",resp)
                 let id = data.dataValues.id
+                
                 VehicleService.updateAtExit(id).then((result)=>{
                     return Response.success(res,201,{
                         message:"Vehicle found successfuly",
-                        data:resp
+                        data:result[1].dataValues
                     })
                 }).catch((err)=>{
                     return Response.error(res,402,{message:"fails to update This vehicle at exit",error:err.message})
