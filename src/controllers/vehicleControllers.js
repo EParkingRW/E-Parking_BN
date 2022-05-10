@@ -1,15 +1,16 @@
 import VehicleService from "../services/vehicleServices";
 import Response from '../helpers/Response';
 import cloudinari from "../utilities/cloudinaryUploader";
-
+import io from './../index'
 export default class vehicleControllers{
     static async savePlateText(req,res){
         const plateText = req.body.plateText;
         const file = req.files.photo;
         try {
             const imageUrl = await cloudinari.uploadPhoto(req,res,file);
-            //res.send({file:imageUrl.secure_url})
+
             VehicleService.create({plateText,imageUrl:imageUrl.secure_url}).then((resp)=>{
+                io.sockets.emit("data",{data:resp})
                 return Response.success(res,201,{
                     message:"Vehicle saved successfuly",
                     data:resp
@@ -31,6 +32,7 @@ export default class vehicleControllers{
                 let id = data.dataValues.id
                 
                 VehicleService.updateAtExit(id).then((result)=>{
+                    io.sockets.emit("data",{data:result})
                     return Response.success(res,201,{
                         message:"Vehicle found successfuly",
                         data:result[1].dataValues
