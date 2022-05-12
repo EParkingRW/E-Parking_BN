@@ -32,7 +32,7 @@ export default class vehicleControllers{
                 let id = data.dataValues.id
                 
                 VehicleService.updateAtExit(id).then((result)=>{
-                    io.sockets.emit("data",{data:result})
+                    io.sockets.emit("exit",{data:result[1].dataValues})
                     return Response.success(res,201,{
                         message:"Vehicle found successfuly",
                         data:result[1].dataValues

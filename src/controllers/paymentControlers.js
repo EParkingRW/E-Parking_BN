@@ -19,9 +19,9 @@ export default class paymentControllers {
         order_id: `USS_RWD_893982923s2323-${new Date()}`, // Unique ref for the mobilemoney transaction to be provided by the merchant
         amount: req.body.amount,
         currency: 'RWF',
-        email: req.me.email,
+        email: 'manzi@eparking.rw',
         phone_number: req.body.phone_number,
-        fullname: `${req.me.firstName} ${req.me.lastName}`,
+        fullname: `Manzi Erickson`,
         redirect_url: `${process.env.API_URL}/api/v1/payment/${req.me.id}/verify`,
       };
       await flw.MobileMoney.rwanda(payload)
