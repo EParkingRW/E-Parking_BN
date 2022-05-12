@@ -5,7 +5,7 @@ import { isLoggedIn } from '../middlewares/auth';
 const app = express();
 
 app.post('/card', isLoggedIn, paymentControllers.chargeCard);
-app.post('/momo', isLoggedIn, paymentControllers.rw_mobile_money);
+app.post('/momo', paymentControllers.rw_mobile_money);
 app.get('/:userId/verify', paymentControllers.checkMomoPay);
 
 export default app;
