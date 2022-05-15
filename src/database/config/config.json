@@ -1,17 +1,20 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "admin123",
+    "username": "root",
+    "password": "Kunnya229043!",
     "database": "smartParking",
-    "host": "localhost",
-    "dialect": "postgres"
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port":3306,
+    "seederStorage": "sequelize"
+
   },
   "test": {
-    "username": "postgres",
+    "username": "mysql",
     "password": null,
     "database": "pulse_dev",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "mysql"
   },
   "production": {
     "username": "vmtathylqvhozs",

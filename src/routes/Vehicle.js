@@ -11,5 +11,6 @@ route.post(
         vehicleControllers.exitPoint
       )
       .get("/",vehicleControllers.getAllSaveVehicles)
+      .post('/ranges',vehicleControllers.getVehiclesByDateRange)
 
 export default route;

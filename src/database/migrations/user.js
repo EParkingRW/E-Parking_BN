@@ -6,7 +6,7 @@ module.exports = {
         id: {
           primaryKey: true,
           allowNull: false,
-          defaultValue: Sequelize.literal("gen_random_uuid()"),
+          defaultValue: require("sequelize").UUIDV4,
           type: Sequelize.UUID,
         },
       roleId: {

@@ -3,7 +3,7 @@ module.exports = {
       queryInterface.createTable('tblPayment', {
         id: {
           type: DataTypes.UUID,
-          defaultValue: DataTypes.literal("gen_random_uuid()"),
+          defaultValue: require("sequelize").UUIDV4,
           primaryKey: true,
         },
         fullName: {

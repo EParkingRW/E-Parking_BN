@@ -62,4 +62,24 @@ export default class vehicleControllers{
             return Response.error(res,500,{message:"server error",error:error.message})
         }
     }
+
+    static async getVehiclesByDateRange(req,res){
+        const toTimeStamp = (strDate) => { 
+            const dt = Date.parse(strDate); 
+            return dt; 
+           }
+        try {
+            const { startingDate, endingDate} = req.body
+            await VehicleService.findvehiclesByDateRange(toTimeStamp(startingDate),toTimeStamp(endingDate)).then((resp)=>{
+                return Response.success(res,201,{
+                    message:"Vehicles retreived successfuly",
+                    data:resp
+                })
+            }).catch((error)=>{
+                return Response.error(res,403,{message:"Failed to retreive vehicles",erraor:error.message})
+            })
+        } catch (error) {
+            return Response.error(res,500,{message:"server error",error:error.message})
+        }
+    }
 }
