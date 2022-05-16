@@ -214,10 +214,6 @@ class UserControllers {
     try {
       const { id } = decode(token);
       let user = await UserService.findByPk(id);
-      const validPassword = validatePassword(password);
-      if (!validPassword.isValid) {
-        return Response.error(res, 400, validPassword.error);
-      }
       if (!user) {
         return Response.error(res, 401, {
           message: 'user not found, signup',

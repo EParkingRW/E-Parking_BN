@@ -32,10 +32,17 @@ export default class vehicleControllers{
                 let id = data.dataValues.id
                 
                 VehicleService.updateAtExit(id).then((result)=>{
-                    io.sockets.emit("exit",{data:result[1].dataValues})
-                    return Response.success(res,201,{
-                        message:"Vehicle found successfuly",
-                        data:result[1].dataValues
+                    return VehicleService.findByPk(id).then((resp)=>{
+                        io.sockets.emit("exit",{data:resp.dataValues})
+                        return Response.success(res,201,{
+                            message:"Vehicle found successfuly",
+                            data:resp
+                        })
+                    }).catch((error)=>{
+                        return Response.error(res,403,{
+                            message:"failure to retreive exit car",
+                            error:error.message
+                        })
                     })
                 }).catch((err)=>{
                     return Response.error(res,402,{message:"fails to update This vehicle at exit",error:err.message})

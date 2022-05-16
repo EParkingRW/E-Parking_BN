@@ -47,7 +47,7 @@ export default class VehicleService{
     })
   }
 
-      /**
+    /**
      * Find vehicle by plateNumber or username
      * @param {string} email
      * @returns User that matches email or username
@@ -61,4 +61,14 @@ export default class VehicleService{
         }
       })
     }
+
+      /**
+   * Find Vehicle by id
+   * @param {Number} id Vehicle ID
+   * @returns Vehicle
+   */
+  static findByPk(id) {
+    return Vehicle.findByPk(id);
+  }
+
 }

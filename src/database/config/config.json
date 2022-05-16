@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Kunnya229043!",
+    "password": "",
     "database": "smartParking",
     "host": "127.0.0.1",
     "dialect": "mysql",
