@@ -2,7 +2,7 @@ export function up(queryInterface, DataTypes) {
     return queryInterface.createTable('tblVehicles', {
         id: {
             type: DataTypes.UUID,
-            defaultValue: require("sequelize").UUIDV4,
+            defaultValue: DataTypes.literal("gen_random_uuid()"),
             primaryKey: true,
         },
         plateText: {
@@ -35,4 +35,3 @@ export function up(queryInterface, DataTypes) {
     });
 }
 export function down(queryInterface) { return queryInterface.dropTable('tblVehicles'); }
-  

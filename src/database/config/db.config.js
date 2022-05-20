@@ -1,46 +1,3 @@
-// import { config as _config } from 'dotenv';
-
-// _config();
-// const config = {
-//   development: {
-//     // username: "root",
-//     // password: "",
-//     // database: "smartParking",
-//     // host: "127.0.0.1",
-//     // logging: false,
-//     // dialect: "mysql",
-//     // seederStorage: 'sequelize',
-//     username: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
-//     host: process.env.DB_HOST,
-//     logging: false,
-//     dialect: 'postgres',
-//     seederStorage: 'sequelize',
-//   },
-//   test: {
-//     username: process.env.DB_USER_TEST,
-//     password: process.env.DB_PASSWORD_TEST,
-//     database: process.env.DB_NAME_TEST,
-//     host: process.env.DB_HOST_TEST,
-//     dialect: 'postgres',
-//     seederStorage: 'sequelize',
-//     logging: false,
-//   },
-//   production: {
-//     username: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
-//     host: process.env.DB_HOST,
-//     port: process.env.DB_PORT,
-//     dialect: 'postgres',
-//     seederStorage: 'sequelize',
-//     logging: false,
-//   },
-// };
-
-// export default config;
-
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -50,7 +7,7 @@ const config = {
     password: process.env.DB_PASSWORD_DEV,
     database: process.env.DB_NAME_DEV,
     host: process.env.DB_HOST_DEV,
-    dialect: 'mysql',
+    dialect: 'postgres',
     seederStorage: 'sequelize',
   },
   test: {
@@ -58,19 +15,26 @@ const config = {
     password: process.env.DB_PASSWORD_TEST,
     database: process.env.DB_NAME_TEST,
     host: process.env.DB_HOST_TEST,
-    dialect: 'mysql',
+    dialect: 'postgres',
     seederStorage: 'sequelize',
     logging: false,
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: 'mysql',
+    username: "vmtathylqvhozs",
+    password:  "2a0e9be8242f9bdfdb9ac5b571dd10b6a51dee92af54961957fffe02f6686b9f",
+    database:  "d79q7vo4258mtb",
+    host: "ec2-3-222-204-187.compute-1.amazonaws.com",
+    port: 5432,
+    dialect: 'postgres',
     seederStorage: 'sequelize',
     logging: false,
+    dialectOptions:{
+      bigNumberStrings: true,
+      ssl:{
+        required:true,
+        rejectUnauthorized: false
+      }
+    }
   },
 };
 
