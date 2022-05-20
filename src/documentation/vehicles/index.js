@@ -53,7 +53,7 @@ const Vehicles = {
         responses,
       },
     },
-    '/vehicles/ranges': {
+    '/vehicles/range': {
       post: {
         tags: ['Vehicles'],
         security: [
@@ -89,32 +89,6 @@ const Vehicles = {
         ],
         summary: 'retreive all vehicles',
         parameters: [],
-        consumes: ['application/json'],
-        responses,
-      },
-    },
-    '/vehicles/range': {
-      get: {
-        tags: ['Vehicles'],
-        security: [
-          {
-            JWT: [],
-          },
-        ],
-        summary: 'retreive all vehicles',
-        parameters: [
-          {
-            in: 'body',
-            name: 'body',
-            required: true,
-            schema: {
-              example: {
-                startingDate:"1/1/2021",
-                endingDate:"12/12/2022"
-              },
-            },
-          },
-        ],
         consumes: ['application/json'],
         responses,
       },
