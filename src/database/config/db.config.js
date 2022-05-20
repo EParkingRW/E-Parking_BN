@@ -1,13 +1,12 @@
-import { config as _config } from 'dotenv';
+const dotenv = require('dotenv');
 
-_config();
+dotenv.config();
 const config = {
   development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    logging: false,
+    username: process.env.DB_USER_DEV,
+    password: process.env.DB_PASSWORD_DEV,
+    database: process.env.DB_NAME_DEV,
+    host: process.env.DB_HOST_DEV,
     dialect: 'postgres',
     seederStorage: 'sequelize',
   },
@@ -21,15 +20,22 @@ const config = {
     logging: false,
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    username: "vmtathylqvhozs",
+    password:  "2a0e9be8242f9bdfdb9ac5b571dd10b6a51dee92af54961957fffe02f6686b9f",
+    database:  "d79q7vo4258mtb",
+    host: "ec2-3-222-204-187.compute-1.amazonaws.com",
+    port: 5432,
     dialect: 'postgres',
     seederStorage: 'sequelize',
     logging: false,
+    dialectOptions:{
+      bigNumberStrings: true,
+      ssl:{
+        required:true,
+        rejectUnauthorized: false
+      }
+    }
   },
 };
 
-export default config;
+module.exports = config;

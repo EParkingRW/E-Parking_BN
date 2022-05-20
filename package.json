@@ -12,7 +12,7 @@
     "seeding": "npx sequelize db:seed:all",
     "seed:undo": "npx sequelize db:seed:undo:all",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
-    "migrateDB": "npx sequelize-cli db:migrate:undo:all && npm run migrate && npm run seeding",
+    "migrateDB": "npx sequelize-cli db:migrate:undo:all && npm run migrate && npm run seeding ",
     "db:create": "sequelize db:create",
     "db:drop": "sequelize db:drop"
   },
@@ -40,6 +40,7 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "nodemailer": "^6.7.3",
     "open": "^8.4.0",
     "path": "^0.12.7",

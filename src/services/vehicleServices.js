@@ -1,4 +1,5 @@
 import {Vehicle} from './../database/models'
+const { Op } = require("sequelize");
 
 export default class VehicleService{
      /**
@@ -45,4 +46,29 @@ export default class VehicleService{
       order: [ [ 'createdAt', 'DESC' ]]
     })
   }
+
+    /**
+     * Find vehicle by plateNumber or username
+     * @param {string} email
+     * @returns User that matches email or username
+     */
+    static findvehiclesByDateRange(startDate,endDate){
+      return Vehicle.findAll({
+        where:{
+          createdAt:{
+            [Op.between]: [startDate, endDate], 
+          },
+        }
+      })
+    }
+
+      /**
+   * Find Vehicle by id
+   * @param {Number} id Vehicle ID
+   * @returns Vehicle
+   */
+  static findByPk(id) {
+    return Vehicle.findByPk(id);
+  }
+
 }

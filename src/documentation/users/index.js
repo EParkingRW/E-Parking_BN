@@ -115,6 +115,7 @@ const users = {
           schema: {
             example: {
               password: 'admin1234',
+              token:'',
             },
           },
         },

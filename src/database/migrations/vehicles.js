@@ -35,4 +35,3 @@ export function up(queryInterface, DataTypes) {
     });
 }
 export function down(queryInterface) { return queryInterface.dropTable('tblVehicles'); }
-  
