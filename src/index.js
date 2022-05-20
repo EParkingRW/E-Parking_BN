@@ -23,8 +23,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static('files'));
 app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
-//app.use(express.urlencoded({ extended: false }));
+if (app.get('env') === 'development') { app.use(morgan('dev'));}
 app.use(isAuth);
 app.use(router)
 app.get('*', (_, res) => {
