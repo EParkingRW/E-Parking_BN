@@ -6,10 +6,6 @@ route.post(
         '/entrance',
         vehicleControllers.savePlateText
       )
-      .put(
-        '/exit',
-        vehicleControllers.exitPoint
-      )
       .get("/",vehicleControllers.getAllSaveVehicles)
       .post('/range',vehicleControllers.getVehiclesByDateRange)
 

@@ -28,31 +28,6 @@ const Vehicles = {
           responses,
         },
       },
-    '/vehicles/exit': {
-      put: {
-        tags: ['Vehicles'],
-        security: [
-          {
-            JWT: [],
-          },
-        ],
-        summary: 'View Exit vehicle',
-        parameters: [
-          {
-              in: 'body',
-              name: 'plateText',
-              required: true,
-              schema:{
-                example:{
-                  plateText:"RAB123C"
-                }
-              }
-          }
-        ],
-        consumes: ['application/json'],
-        responses,
-      },
-    },
     '/vehicles/range': {
       post: {
         tags: ['Vehicles'],

@@ -32,9 +32,9 @@ export default class VehicleService{
         return Vehicle.findAll();
       }
       /**
-   * Find vehicle by plateNumber or username
+   * Find vehicle by plateNumber or Vehiclename
    * @param {string} email
-   * @returns User that matches email or username
+   * @returns Vehicle that matches email or Vehiclename
    */
   static findvehicleByPlateNumber(plateText) {
     return Vehicle.findAll({
@@ -48,9 +48,10 @@ export default class VehicleService{
   }
 
     /**
-     * Find vehicle by plateNumber or username
-     * @param {string} email
-     * @returns User that matches email or username
+     * Find vehicle by plateNumber or Vehiclename
+     * @param {string} startDate
+     * @param {string} endDate
+     * @returns Vehicle that matches email or Vehiclename
      */
     static findvehiclesByDateRange(startDate,endDate){
       return Vehicle.findAll({
@@ -62,7 +63,7 @@ export default class VehicleService{
       })
     }
 
-      /**
+  /**
    * Find Vehicle by id
    * @param {Number} id Vehicle ID
    * @returns Vehicle
@@ -70,5 +71,16 @@ export default class VehicleService{
   static findByPk(id) {
     return Vehicle.findByPk(id);
   }
+/**
+   * Find Vehicle by given condition
+   * @param {Object} condition Condition to follow ex: { where: {email: 'john@example.com' }}
+   * @returns Vehicle that matches the condition
+   */
+ static findWhere(condition) {
+  return Vehicle.findOne({
+    where: { plateText:condition },
+    order: [ [ 'createdAt', 'DESC' ]]});
+}
+
 
 }
