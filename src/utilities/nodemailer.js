@@ -14,7 +14,7 @@ export const emailSender = async (options) => {
         user: process.env.SERVICE_USERNAME,
         pass: process.env.SERVICE_PASSWORD,
       },
-      secure: true,
+      secure: false,
       logger: true,
       debug: true,
     });

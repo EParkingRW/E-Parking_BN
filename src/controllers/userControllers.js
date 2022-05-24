@@ -78,7 +78,6 @@ class UserControllers {
       if (doesExist) {
         return Response.error(res, 400, { message: 'user is already exist' })
       }
-      const user =  await UserService.create(theUser);
       
       const options = {
         email: `${email}`,
@@ -86,6 +85,8 @@ class UserControllers {
         message: await emailMocks.signupEmail(email, generatedPassword),
       };
       await emailSender(options);
+      const user =  await UserService.create(theUser);
+    
       return Response.success(res, 201, {
         message:"user created successfull",
         user

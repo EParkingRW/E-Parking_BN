@@ -7,10 +7,11 @@ module.exports = {
       [
         {
           name: "NKUBITO Emmanuel",
-          email: "admin@future.rw",
+          email: "admin@parking.rw",
           password:
-            "$2a$12$E2xGQsWNR.A8Hpn5r0GgSuWvXneBa7OppbKflmJ1.kHxjclk5mUkC",
-          phoneNumber:'0787311654'
+            "$2a$12$Vc.fLIFx/0qfWlCpe08qgO.rA54RKMb/Yuq7M3E0wDiJ6E2elBwOS",
+          phoneNumber:'0787311654',
+          roleId:"b4462e58-8b81-4edd-8519-e247a1f7cca7"
         },
       ],
       {}

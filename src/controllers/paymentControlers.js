@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import open from 'open';
-import { Payment } from '../database/models';
+import { Payment,User } from '../database/models';
 import Response from '../helpers/Response';
 // import Flutterwave from 'flutterwave-node-v3';
 const Flutterwave = require('flutterwave-node-v3');
@@ -12,6 +12,7 @@ const flw = new Flutterwave(
 
 dotenv.config();
 export default class paymentControllers {
+  
   static async rw_mobile_money(req, res) {
     try {
       const payload = {
@@ -51,7 +52,6 @@ export default class paymentControllers {
     }
   }
 
-  // eslint-disable-next-line consistent-return
   static async checkMomoPay(req, res) {
     try {
       const response = req.query.resp;
@@ -60,6 +60,7 @@ export default class paymentControllers {
       const datas = JSON.parse(info);
       if (datas.status === 'error') {
         return res.status(403).json({
+          status:403,
           ...datas,
         });
       }
@@ -84,8 +85,9 @@ export default class paymentControllers {
           res.redirect(`${process.env.WEB_APP_URL}`),
         )
         .catch((error) =>
-          res.status(500).json({
-            message: 'sever error',
+          res.status(403).json({
+            status:403,
+            message: 'Payment failed',
             error: error.message,
           }),
         );
@@ -97,7 +99,7 @@ export default class paymentControllers {
     }
   }
 
-  // eslint-disable-next-line consistent-return
+
   static async chargeCard(req, res) {
     const payload = {
       card_number: req.body.card_number,
@@ -116,7 +118,11 @@ export default class paymentControllers {
     try {
       const response = await flw.Charge.card(payload);
       if (response.status === 'error') {
-        res.status(401).send(response);
+        res.status(401).send({
+          status:401,
+          message:"There is error in transaction",
+          data:response
+        });
       }
       // console.log('response', response);
       if (response.meta.authorization.mode === 'pin') {
@@ -130,16 +136,45 @@ export default class paymentControllers {
         // console.log(reCallCharge);
         if (reCallCharge.status === 'error') {
           return res.status(403).send({
+            status:403,
             message: 'there is no charge made',
             error: reCallCharge.message,
           });
         }
-        const callValidate = await flw.Charge.validate({
+        const datas = await flw.Charge.validate({
           otp: '12345',
           flw_ref: reCallCharge.data.flw_ref,
         });
-        res.status(200).json({ ...callValidate });
-        // console.log('check:', callValidate);
+        const payloads = {
+          fullName: datas.data.customer.name,
+          email: datas.data.customer.email,
+          phone:  datas.data.customer.phone_number,
+          customerId: datas.data.customer.id,
+          accountId: datas.data.account_id,
+          paymentType: datas.data.payment_type,
+          currency: datas.data.currency,
+          amount: datas.data.amount,
+          appfee: datas.data.app_fee,
+          orderRef: datas.data.tx_ref,
+          flwRef: datas.data.flw_ref,
+          userId:req.me.id,
+        };
+        await Payment.create({ ...payloads })
+        .then((rslt) =>
+          res.status(200).json({ 
+            status:200,
+            message:'transaction is successfully',
+            data:rslt
+          })
+        )
+        .catch((error) =>
+          res.status(403).json({
+            status:403,
+            message: 'Payment failed',
+            error: error.message,
+          }),
+        );
+        // console.log('check:', datas);
       }
       if (response.meta.authorization.mode === 'redirect') {
         const url = response.meta.authorization.redirect;
@@ -155,4 +190,164 @@ export default class paymentControllers {
       // console.log('error:', error.message);
     }
   }
+
+  static async payByCash(req,res){
+    try {
+      const { amount } = req.body;
+      const userId = req.me.id;
+      const payload = {
+        amount,userId
+      }
+      await Payment.create({ ...payload })
+      .then((resp) =>
+        res.status(201).json({
+          status:201,
+          message:"payment with cash is successfully",
+          data:resp
+        }),
+      )
+      .catch((error) =>
+        res.status(403).json({
+          status:403,
+          message: 'Payment with cash failed',
+          error: error.message,
+        }),
+      );
+    } catch (error) {
+      res.status(500).json({
+        message: 'Transaction failed to be successful',
+        error: error.message,
+      });
+    }
+  }
+
+  static async getAllTransactions(req,res){
+    try {
+      await Payment.findAll({
+          // include: [{
+          //   model: User,
+          //   as: 'User',
+          //   // attributes: ["name", "email"]
+          // }]
+      }).then((rslt)=>{
+        res.status(200).json({
+          status:200,
+          message:"transactions received successfully",
+          data:rslt
+        })
+      }).catch((error)=>{
+        res.status(401).json({
+          status:401,
+          message:"Transaction fails to be retreived",
+          error:error.message
+        })
+      })
+    } catch (error) {
+      res.status(500).json({
+        status:500,
+        message:"server error",
+        error:error.message
+      })
+    }
+  }
+
+  static async getAlltransactionsOfMomo(req,res){
+    try {
+      await Payment.findAndCountAll({
+        where:{
+          paymentType: "mobilemoneyrw",
+        },
+          // include: [{
+          //   model: User,
+          //   as: 'User',
+          //   // attributes: ["name", "email"]
+          // }]
+      }).then((rslt)=>{
+        res.status(200).json({
+          status:200,
+          message:"transactions received successfully",
+          data:rslt
+        })
+      }).catch((error)=>{
+        res.status(401).json({
+          status:401,
+          message:"Transaction fails to be retreived",
+          error:error.message
+        })
+      })
+    } catch (error) {
+      res.status(500).json({
+        status:500,
+        message:"server error",
+        error:error.message
+      })
+    }
+  }
+
+  static async getAlltransactionsOfCard(req,res){
+    try {
+      await Payment.findAndCountAll({
+        where:{
+          paymentType: "card",
+        },
+          // include: [{
+          //   model: User,
+          //   as: 'User',
+          //   // attributes: ["name", "email"]
+          // }]
+      }).then((rslt)=>{
+        res.status(200).json({
+          status:200,
+          message:"transactions received successfully",
+          data:rslt
+        })
+      }).catch((error)=>{
+        res.status(401).json({
+          status:401,
+          message:"Transaction fails to be retreived",
+          error:error.message
+        })
+      })
+    } catch (error) {
+      res.status(500).json({
+        status:500,
+        message:"server error",
+        error:error.message
+      })
+    }
+  }
+
+  static async getAlltransactionsOfCash(req,res){
+    try {
+      await Payment.findAndCountAll({
+        where:{
+          paymentType: "CASH",
+        },
+          // include: [{
+          //   model: User,
+          //   as: 'User',
+          //   // attributes: ["name", "email"]
+          // }]
+      }).then((rslt)=>{
+        res.status(200).json({
+          status:200,
+          message:"transactions received successfully",
+          data:rslt
+        })
+      }).catch((error)=>{
+        res.status(401).json({
+          status:401,
+          message:"Transaction fails to be retreived",
+          error:error.message
+        })
+      })
+    } catch (error) {
+      res.status(500).json({
+        status:500,
+        message:"server error",
+        error:error.message
+      })
+    }
+  }
+
 }

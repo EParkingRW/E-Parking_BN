@@ -8,59 +8,61 @@ module.exports = {
       },
       fullName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       customerId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       accountId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       paymentType: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       currency: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       amount: {
         type: DataTypes.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       appfee: {
         type: DataTypes.DOUBLE,
-        allowNull: false,
+        allowNull: true,
       },
       orderRef: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       flwRef: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       userId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
       },
     }),
   down: (queryInterface) => queryInterface.dropTable('tblPayment'),

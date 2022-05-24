@@ -38,7 +38,7 @@ export const isAuth = (req, _, next) => {
 // eslint-disable-next-line consistent-return
 export const isLoggedIn = async (req, res, next) => {
   if (!req.me) {
-    return Response.error(res, 404, {
+    return Response.error(res, 403, {
       message: 'Invalid/expired token, Login again',
     });
   }
