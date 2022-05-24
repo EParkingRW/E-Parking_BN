@@ -14,7 +14,7 @@ const users = {
           required: true,
           schema: {
             example: {
-              email: 'admin@future.rw',
+              email: 'admin@parking.rw',
               name: ' Thunder Eye',
               phone: '0789234113',
             },
@@ -38,7 +38,7 @@ const users = {
           required: true,
           schema: {
             example: {
-              login: 'admin@future.rw',
+              login: 'admin@parking.rw',
               password: 'admin123',
             },
           },
@@ -61,7 +61,7 @@ const users = {
           required: true,
           schema: {
             example: {
-              email: 'admin@future.rw',
+              email: 'admin@parking.rw',
             },
           },
         },

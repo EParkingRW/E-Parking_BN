@@ -11,8 +11,7 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.UUID,
           foreignKey: true,
           allowNull: false,
-          defaultValue: Sequelize.UUIDV1,
-          // defaultValue: 3,
+          defaultValue: "fe2900d3-cd33-4a5f-abda-1b0cd1a91c57",
       },
       email: {
           type: Sequelize.STRING,
@@ -40,24 +39,18 @@ module.exports = (sequelize, Sequelize) => {
     },
   );
 
-  User.associate = () => {
-  //   User.belongsTo(models.Role, {
-  //     as: 'role',
-  //     foreignKey: {
-  //       name: 'roleId',
-  //     },
-  //   });
-    // User.hasMany(models.Object, {
-    //   foreignKey: {
-    //     name: 'userId',
-    //   },
-    // });
-    // User.belongsTo(models.Payment, {
-    //   as: 'userId',
-    //   foreignKey: {
-    //     name: 'userId',
-    //   },
-    // });
+  User.associate = (models) => {
+    User.belongsTo(models.Role, {
+      as: 'Role',
+      foreignKey: 'roleId',
+      onDelete: 'CASCADE',
+    });
+    User.hasMany(models.Payment, {
+      foreignKey: {
+        name: 'userId',
+        onDelete: 'CASCADE',
+      },
+    });
   };
 
   return User;

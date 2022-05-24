@@ -9,12 +9,12 @@ module.exports = {
           defaultValue: Sequelize.literal("gen_random_uuid()"),
           type: Sequelize.UUID,
         },
-      roleId: {
-        type: Sequelize.UUID,
-        foreignKey: true,
-        allowNull: false,
-        defaultValue: "50b5cfca-c3ef-11ec-a2e8-c4346b2430f5",
-    },
+        roleId: {
+          type: Sequelize.UUID,
+          foreignKey: true,
+          allowNull: false,
+          defaultValue: "fe2900d3-cd33-4a5f-abda-1b0cd1a91c57",
+      },
       name: {
         type: Sequelize.STRING,
       },

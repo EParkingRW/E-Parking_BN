@@ -59,6 +59,87 @@ const payment = {
       responses,
     },
   },
+  '/payment/cash': {
+    post: {
+      tags: ['Payment'],
+      security: [
+        {
+          JWT: [],
+        },
+      ],
+      summary: 'paying using Cash',
+      parameters: [
+        {
+          in: 'body',
+          name: 'body',
+          required: true,
+          schema: {
+            example: {
+              amount: '1500',
+            },
+          },
+        },
+      ],
+      consumes: ['application/json'],
+      responses,
+    },
+  },
+  '/payment/all': {
+    get: {
+      tags: ['Payment'],
+      security: [
+        {
+          JWT: [],
+        },
+      ],
+      summary: 'Getting all transactions',
+      parameters: [],
+      consumes: ['application/json'],
+      responses,
+    },
+  },
+  '/payment/all/momo': {
+    get: {
+      tags: ['Payment'],
+      security: [
+        {
+          JWT: [],
+        },
+      ],
+      summary: 'Getting all MOMO transactions',
+      parameters: [],
+      consumes: ['application/json'],
+      responses,
+    },
+  },
+  '/payment/all/card': {
+    get: {
+      tags: ['Payment'],
+      security: [
+        {
+          JWT: [],
+        },
+      ],
+      summary: 'Getting all card transactions',
+      parameters: [],
+      consumes: ['application/json'],
+      responses,
+    },
+  },
+  '/payment/all/cash': {
+    get: {
+      tags: ['Payment'],
+      security: [
+        {
+          JWT: [],
+        },
+      ],
+      summary: 'Getting all cash transactions',
+      parameters: [],
+      consumes: ['application/json'],
+      responses,
+    },
+  },
 };
 
 export default payment;

@@ -31,6 +31,7 @@ export function up(queryInterface, DataTypes) {
         updatedAt: {
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
         },
     });
 }
