@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Role, {
-      as: 'Role',
+      as: 'role',
       foreignKey: 'roleId',
       onDelete: 'CASCADE',
     });

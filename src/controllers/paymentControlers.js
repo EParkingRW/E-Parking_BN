@@ -224,11 +224,11 @@ export default class paymentControllers {
   static async getAllTransactions(req,res){
     try {
       await Payment.findAll({
-          // include: [{
-          //   model: User,
-          //   as: 'User',
-          //   // attributes: ["name", "email"]
-          // }]
+          include: [{
+            model: User,
+            as: 'user',
+            attributes: ["name", "email"]
+          }]
       }).then((rslt)=>{
         res.status(200).json({
           status:200,

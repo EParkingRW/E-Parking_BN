@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: `REF_3s2332-${new Date()}`
       },
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
       },
     },
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Payment.associate = (models) => {
     Payment.belongsTo(models.User, {
-      as: 'User',
+      as: 'user',
       onDelete: 'CASCADE',
       foreignKey:'userId',
     });

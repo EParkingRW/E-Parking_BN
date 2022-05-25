@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { User } from '../database/models';
+import { User, Role } from '../database/models';
 
 /**
  * @author NKUBITO E.
@@ -12,7 +12,13 @@ export default class UserService {
    * @returns User
    */
   static findByPk(id) {
-    return User.findByPk(id);
+    return User.findByPk(id,{
+      include: [{
+        model: Role,
+        as: 'role',
+        attributes: ["title"]
+      }]
+    });
   }
 
   /**
@@ -20,7 +26,13 @@ export default class UserService {
    * @returns List of users
    */
   static findAll() {
-    return User.findAll();
+    return User.findAll({
+      include: [{
+        model: Role,
+        as: 'role',
+        attributes: ["title"]
+      }]
+    });
   }
 
   /**
