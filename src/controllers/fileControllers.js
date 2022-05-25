@@ -1,6 +1,7 @@
 import path from 'path';
 
 export default class FileController {
+  
   static async downloadImages(req, res) {
     const { name } = req.params;
     const file = path.join(__dirname, `../files/images/${name}`);
