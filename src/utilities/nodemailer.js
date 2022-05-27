@@ -8,7 +8,7 @@ import nodemailer from 'nodemailer'
 export const emailSender = async (options) => {
   try {
     var transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com', // hostname
+        host: process.env.TRANSPORTER_SERVICE, // hostname
         service: 'outlook',
         secureConnection: false, // TLS requires secureConnection to be false
         port: 587, // port for secure SMTP
@@ -16,12 +16,12 @@ export const emailSender = async (options) => {
           rejectUnauthorized: false
         },
         auth: {
-          user: 'paternenught@outlook.com',
-          pass: 'Hirwa100',
+          user: process.env.SERVICE_USERNAME,
+          pass: process.env.SERVICE_PASSWORD,
         }
     });
     const mailOptions = {
-      from: `Smart Parking <paternenught@outlook.com>`,
+      from: `Smart Parking <${process.env.SERVICE_USERNAME}>`,
       to: options.email,
       subject: options.subject,
       html: options.message,
