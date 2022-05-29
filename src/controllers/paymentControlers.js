@@ -4,6 +4,7 @@ import { Payment,User } from '../database/models';
 import Response from '../helpers/Response';
 // import Flutterwave from 'flutterwave-node-v3';
 const Flutterwave = require('flutterwave-node-v3');
+const { Op } = require("sequelize");
 
 const flw = new Flutterwave(
   process.env.FLW_PUBLIC_KEY,
@@ -224,6 +225,43 @@ export default class paymentControllers {
   static async getAllTransactions(req,res){
     try {
       await Payment.findAll({
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: ["name", "email"]
+        }]
+      }).then((rslt)=>{
+        res.status(200).json({
+          status:200,
+          message:"transactions received successfully",
+          data:rslt
+        })
+      }).catch((error)=>{
+        res.status(401).json({
+          status:401,
+          message:"Transaction fails to be retreived",
+          error:error.message
+        })
+      })
+    } catch (error) {
+      res.status(500).json({
+        status:500,
+        message:"server error",
+        error:error.message
+      })
+    }
+  }
+
+  static async getAlltransactionsOfMomo(req,res){
+    const { startingDate, endingDate} = req.query
+    try {
+      await Payment.findAndCountAll({
+        where:{
+          paymentType: "mobilemoneyrw",
+          createdAt:{
+            [Op.between]: [Date.parse(startingDate), Date.parse(endingDate)], 
+          },
+        },
           include: [{
             model: User,
             as: 'user',
@@ -251,50 +289,21 @@ export default class paymentControllers {
     }
   }
 
-  static async getAlltransactionsOfMomo(req,res){
-    try {
-      await Payment.findAndCountAll({
-        where:{
-          paymentType: "mobilemoneyrw",
-        },
-          // include: [{
-          //   model: User,
-          //   as: 'User',
-          //   // attributes: ["name", "email"]
-          // }]
-      }).then((rslt)=>{
-        res.status(200).json({
-          status:200,
-          message:"transactions received successfully",
-          data:rslt
-        })
-      }).catch((error)=>{
-        res.status(401).json({
-          status:401,
-          message:"Transaction fails to be retreived",
-          error:error.message
-        })
-      })
-    } catch (error) {
-      res.status(500).json({
-        status:500,
-        message:"server error",
-        error:error.message
-      })
-    }
-  }
-
   static async getAlltransactionsOfCard(req,res){
+    const { startingDate, endingDate} = req.query
     try {
       await Payment.findAndCountAll({
         where:{
           paymentType: "card",
+          createdAt:{
+            [Op.between]: [Date.parse(startingDate), Date.parse(endingDate)], 
+          },
         },
-          // include: [{
-          //   model: User,
-          //   as: 'User',
-          //   // attributes: ["name", "email"]
-          // }]
+          include: [{
+            model: User,
+            as: 'user',
+            attributes: ["name", "email"]
+          }]
       }).then((rslt)=>{
         res.status(200).json({
           status:200,
@@ -318,16 +327,20 @@ export default class paymentControllers {
   }
 
   static async getAlltransactionsOfCash(req,res){
+    const { startingDate, endingDate} = req.query
     try {
       await Payment.findAndCountAll({
         where:{
           paymentType: "CASH",
+          createdAt:{
+            [Op.between]: [Date.parse(startingDate), Date.parse(endingDate)], 
+          },
         },
-          // include: [{
-          //   model: User,
-          //   as: 'User',
-          //   // attributes: ["name", "email"]
-          // }]
+          include: [{
+            model: User,
+            as: 'user',
+            attributes: ["name", "email"]
+          }]
       }).then((rslt)=>{
         res.status(200).json({
           status:200,
