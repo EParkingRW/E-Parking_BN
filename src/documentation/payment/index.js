@@ -98,7 +98,7 @@ const payment = {
       responses,
     },
   },
-  '/payment/all/momo': {
+  '/payment/all/momo?startingDate={startingDate}&endingDate={endingDate}': {
     get: {
       tags: ['Payment'],
       security: [
@@ -107,12 +107,29 @@ const payment = {
         },
       ],
       summary: 'Getting all MOMO transactions',
-      parameters: [],
+      parameters: [
+        {
+          in: 'query',
+          name: 'startingDate',
+          required: true,
+          schema: {
+            example: "1/1/2020",
+          },
+        },
+        {
+          in: 'query',
+          name: 'endingDate',
+          required: true,
+          schema: {
+            example: '1/1/2023',
+          },
+        },
+      ],
       consumes: ['application/json'],
       responses,
     },
   },
-  '/payment/all/card': {
+  '/payment/all/card?startingDate={startingDate}&endingDate={endingDate}': {
     get: {
       tags: ['Payment'],
       security: [
@@ -121,12 +138,29 @@ const payment = {
         },
       ],
       summary: 'Getting all card transactions',
-      parameters: [],
+      parameters: [
+        {
+          in: 'query',
+          name: 'startingDate',
+          required: true,
+          schema: {
+            example: "1/1/2020",
+          },
+        },
+        {
+          in: 'query',
+          name: 'endingDate',
+          required: true,
+          schema: {
+            example: '1/1/2023',
+          },
+        },
+      ],
       consumes: ['application/json'],
       responses,
     },
   },
-  '/payment/all/cash': {
+  '/payment/all/cash?startingDate={startingDate}&endingDate={endingDate}': {
     get: {
       tags: ['Payment'],
       security: [
@@ -135,7 +169,24 @@ const payment = {
         },
       ],
       summary: 'Getting all cash transactions',
-      parameters: [],
+      parameters: [
+        {
+          in: 'query',
+          name: 'startingDate',
+          required: true,
+          schema: {
+            example: "1/1/2020",
+          },
+        },
+        {
+          in: 'query',
+          name: 'endingDate',
+          required: true,
+          schema: {
+            example: '1/1/2023',
+          },
+        },
+      ],
       consumes: ['application/json'],
       responses,
     },
