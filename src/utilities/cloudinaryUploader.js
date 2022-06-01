@@ -7,9 +7,9 @@ var cloudinary = require('cloudinary').v2;
 const app = express();
 
 cloudinary.config({
-    cloud_name: "http-voicetoworld-netlify-app",
-    api_key: "958152517412848",
-    api_secret: "h2eAzwp1zYxSKXe6lqHka-kopSQ",
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
   });
 
   export default class cloudinari {

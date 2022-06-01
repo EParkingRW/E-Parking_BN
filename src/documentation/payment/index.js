@@ -24,7 +24,7 @@ const payment = {
               expiry_year: '23',
               currency: 'RWF',
               amount: '100',
-              phone_number: '0902620185',
+              phone_number: '555-555-5555',
             },
           },
         },
@@ -50,7 +50,7 @@ const payment = {
           schema: {
             example: {
               amount: '1500',
-              phone_number: '0902620185',
+              phone_number: '555-555-5555',
             },
           },
         },

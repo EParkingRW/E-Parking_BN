@@ -30,7 +30,6 @@ class UserControllers {
       }
       newUser.password = await bcrypt.hash(newUser.password, 12);
       const user = await UserService.create(newUser);
-      console.log(user)
       const userData = {
         id: user.id,
         email: user.email,
@@ -103,9 +102,9 @@ class UserControllers {
    * @param {Response} res Response
    */
   static async signIn(req, res) {
-    const { login, password } = req.body;
+    const { email, password } = req.body;
     try {
-      let user = await UserService.findOneByEmail(login);
+      let user = await UserService.findOneByEmail(email);
       if (!user) {
         return Response.error(res, 404, {
           message: 'Invalid username or password',
