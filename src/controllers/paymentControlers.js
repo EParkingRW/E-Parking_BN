@@ -61,14 +61,13 @@ export default class paymentControllers {
       const info = decodeURIComponent(response);
       const datas = JSON.parse(info);
       if (datas.status === 'error') {
-        io.sockets.emit("payment", 'Transaction failed to be successful')
-        return res.redirect(`${process.env.WEB_APP_URL}`)
-        // return res.status(403).json({
-        //   status:403,
-        //   ...datas,
-        // });
+        res.redirect(`${process.env.WEB_APP_URL}`)
+        return io.sockets.emit("payment", {
+          message:'Transaction failed to be successful',
+          status:403,
+          data:datas
+        })
       }
-      // console.log('data:', datas);
       const payload = {
         fullName: datas.data['customer.fullName'],
         email: datas.data['customer.email'],
@@ -84,27 +83,29 @@ export default class paymentControllers {
         userId,
       };
       await Payment.create({ ...payload })
-        .then((resp,res) =>{
-          io.sockets.emit("payment",'Transaction is successful');
-          //  res.status(201).json({ ...resp }),
-          return res.redirect(`${process.env.WEB_APP_URL}`)
+        .then((resp) =>{
+          res.redirect(`${process.env.WEB_APP_URL}`)
+          return io.sockets.emit("payment",{
+            message:'Transaction is successful',
+            status:201,
+            data:resp
+          });
         })
         .catch((error) =>{
-          io.sockets.emit("payment", 'Transaction failed to be successful')
-          return res.redirect(`${process.env.WEB_APP_URL}`)
-          // res.status(403).json({
-          //   status:403,
-          //   message: 'Payment failed',
-          //   error: error.message,
-          // })
+          res.redirect(`${process.env.WEB_APP_URL}`)
+          return io.sockets.emit("payment", {
+            status:403,
+            message: 'Payment failed',
+            error: error.message,
+          })
         });
     } catch (error) {
-      io.sockets.emit("payment", 'Transaction failed to be successful')
       res.redirect(`${process.env.WEB_APP_URL}`)
-      // res.status(500).json({
-      //   message: 'Transaction failed to be successful',
-      //   error: error.message,
-      // });
+      return io.sockets.emit("payment", {
+        status:500,
+        message: 'Transaction failed to be successful',
+        error: error.message,
+      })
     }
   }
 
